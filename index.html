@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Heartrate.js</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <script src="vendor/jquery.js"></script>
+    <script src="vendor/underscore.js"></script>
+    <script src="vendor/backbone.js"></script>
+    <script src="vendor/highcharts.js"></script>
+
+    <script src="http://localhost:4001/dist/orange.js"></script>
+
+    <script src="application.js"></script>
+    <script src="models/data_point.js"></script>
+    <script src="collections/measurement.js"></script>
+    <script src="utils/recorder.js"></script>
+    <script src="views/instructions.js"></script>
+    <script src="views/countdown.js"></script>
+    <script src="views/measuring.js"></script>
+    <script src="views/calculating.js"></script>
+    <script src="views/result.js"></script>
+    <script src="router.js"></script>
+
+    <style>
+      video {
+        width: 320px;
+        height: 240px; }
+      .progress {
+        width: 320px;
+        background: #ccc;
+        position: relative; }
+      .progress > .progress-bar {
+        background: green;
+        height: 15px; }
+      .progress > .waiting {
+        background: red;
+        width: 0; }
+      .progress > .threshold {
+        position: absolute;
+        left: 0;
+        top: -5px;
+        bottom: -5px;
+        border-right: 1px solid green; }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+    <script type="text/html" id="tmpl-instructions">
+      <h2>Instructions</h2>
+      <a href="#measure" title="Start measuring...">
+        Take a new measurement
+      </a>
+    </script>
+    <script type="text/html" id="tmpl-measuring">
+      <h2>Measuring</h2>
+      <video autoplay></video>
+      <canvas style="display: none"></canvas>
+      <div class="progress">
+        <div class="progress-bar waiting"></div>
+        <div class="threshold"></div>
+      </div>
+      <a class="cancel" href="#" title="Go back">
+        Cancel
+      </a>
+    </script>
+    <script type="text/html" id="tmpl-calculating">
+      <h2>Calculating &hellip;</h2>
+    </script>
+    <script type="text/html" id="tmpl-result">
+      <h2>Result</h2>
+      <% if (rate > 160 || rate < 40) { %>
+      <p>Error: Heart rate outside bounds.</p>
+      <% } else { %>
+      <p>Heart rate: <strong>~<%= rate %></strong> BPM</p>
+      <% } %>
+      <div id="graph"></div>
+      <label>
+        Span (<span><%= span %></span>):
+        <input class="span" type="range" name="span" min="0" max="20" value="<%= span %>" />
+      </label>
+       <label>
+        Repetitions (<span><%= repetitions %></span>):
+        <input class="repetitions" type="range" name="repetitions" min="0" max="20" value="<%= repetitions %>" />
+      </label>
+      <a href="#" title="Go back">
+        Start over
+      </a>
+    </script>
+  </body>
+</html>
