@@ -19,7 +19,7 @@ class HeartrateJS.Utils.Recorder
   init: ->
     success = (stream) =>
       # setup preview
-      @preview.src      = window.URL.createObjectURL stream
+      @preview.src      = window.URL.createObjectURL(stream)
       @localMediaStream = stream
 
       @preview.addEventListener 'loadeddata', (e) =>
