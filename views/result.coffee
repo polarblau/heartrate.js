@@ -2,13 +2,12 @@ class HeartrateJS.Views.Result extends Backbone.View
 
   el: '#container'
   events:
-    'change .span'       : '_updateViaSlider'
-    'change .repetitions': '_updateViaSlider'
+    'click a.graph-toggle' : '_toggleGraph'
 
   initialize: ->
     @template    = _.template $('#tmpl-result').text()
-    @span        = 5
-    @repetitions = 5
+    @span        = 3
+    @repetitions = 6
 
   render: ->
     @$el.html @template(@_templateData())
@@ -23,14 +22,6 @@ class HeartrateJS.Views.Result extends Backbone.View
     rate       : @collection.toNumber()
     span       : @span
     repetitions: @repetitions
-
-  _updateViaSlider: (e) =>
-    $input      = $(e.currentTarget)
-    property    = $input.attr('name')
-    value       = $input.val()
-    @[property] = value
-    $input.parent('label').find('span').text value
-    @render()
 
   _renderChart: (series) ->
     @chart = new Highcharts.Chart
@@ -65,4 +56,6 @@ class HeartrateJS.Views.Result extends Backbone.View
           lineColor: color
           radius: 7
 
-
+  _toggleGraph: (e) ->
+    e.preventDefault()
+    @$el.find('#graph').toggle()
