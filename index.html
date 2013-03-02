@@ -72,19 +72,12 @@
     <script type="text/html" id="tmpl-result">
       <h2>Result</h2>
       <% if (rate > 160 || rate < 40) { %>
-      <p>Error: Heart rate outside bounds.</p>
+      <p>Error: Heart rate outside bounds.
       <% } else { %>
-      <p>Heart rate: <strong>~<%= rate %></strong> BPM</p>
+      <p>Heart rate: <strong>~<%= rate %></strong> BPM
       <% } %>
-      <div id="graph"></div>
-      <label>
-        Span (<span><%= span %></span>):
-        <input class="span" type="range" name="span" min="0" max="20" value="<%= span %>" />
-      </label>
-       <label>
-        Repetitions (<span><%= repetitions %></span>):
-        <input class="repetitions" type="range" name="repetitions" min="0" max="20" value="<%= repetitions %>" />
-      </label>
+      (<a class="graph-toggle" href="#" title="Go back"><small>Graph</small></a>)</p>
+      <div id="graph" style="display: none"></div>
       <a href="#" title="Go back">
         Start over
       </a>
